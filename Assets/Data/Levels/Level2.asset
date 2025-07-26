@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Level2
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   <LevelID>k__BackingField: 2
-  <RequiredPoints>k__BackingField: 20
+  <RequiredPoints>k__BackingField: 2000

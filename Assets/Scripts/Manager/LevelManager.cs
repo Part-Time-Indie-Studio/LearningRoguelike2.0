@@ -56,6 +56,7 @@ public class LevelManager : Singleton<LevelManager>
         ActionSystem.Instance.AddReaction(spawnDropAreasGA);
         RemoveDropAreaCardsGA removeDropAreaCardsGA = new();
         ActionSystem.Instance.AddReaction(removeDropAreaCardsGA);
+        PointsUIManager.Instance.SetMultiplierValue();
         yield return null;
     }
     

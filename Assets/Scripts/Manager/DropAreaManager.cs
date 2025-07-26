@@ -8,12 +8,14 @@ public class DropAreaManager : Singleton<DropAreaManager>
     [SerializeField] private List<CardDropArea> spawnedDropAreas;
     [SerializeField] private GameObject dropAreaPrefab;
     [SerializeField] private float spacing = 1f;
+    private float currentMultiplier = 1f;
 
     private void OnEnable()
     {
         ActionSystem.AttachPerformer<AddPointsGA>(AddPointsPerformer);
         ActionSystem.AttachPerformer<CheckAnswerGA>(CheckAnswerPerformer);
         ActionSystem.AttachPerformer<SpawnDropAreasGA>(SpawnDropAreasPerformer);
+        ActionSystem.SubscribeReaction<CheckAnswerGA>(ApplyMultiplierPost, ReactionTiming.POST);
     }
 
     private void OnDisable()
@@ -21,6 +23,7 @@ public class DropAreaManager : Singleton<DropAreaManager>
         ActionSystem.DetachPerformer<AddPointsGA>();
         ActionSystem.DetachPerformer<CheckAnswerGA>();
         ActionSystem.DetachPerformer<SpawnDropAreasGA>();
+        ActionSystem.UnsubscribeReaction<CheckAnswerGA>(ApplyMultiplierPost, ReactionTiming.POST);
     }
 
     public List<CardDropArea> GetDropAreas()
@@ -32,17 +35,28 @@ public class DropAreaManager : Singleton<DropAreaManager>
     {
         foreach (CardDropArea dropArea in spawnedDropAreas)
         {
-            AddPointsGA addPointsGA = new(dropArea.IsCorrect());
+            AddPointsGA addPointsGA = new(dropArea.GetPoints());
             ActionSystem.Instance.AddReaction(addPointsGA);
-            yield return null;
         }
+        yield return null;
     }
     
 	private IEnumerator AddPointsPerformer(AddPointsGA addPointsGA)
     {
-        Debug.Log("AddPointsPerformer");
         PointsManager.Instance.AddPoints(addPointsGA.PointsAmount);
+        if (addPointsGA.PointsAmount > 0)
+        {
+            currentMultiplier += 0.1f;
+            PointsUIManager.Instance.SetMultiplierValue();
+        }
         yield return new WaitForSeconds(0.7f);
+    }
+    
+    private void ApplyMultiplierPost(CheckAnswerGA checkAnswerGA)
+    {
+        AddMultiplierGA addMultiplierGA = new(currentMultiplier);
+        ActionSystem.Instance.AddReaction(addMultiplierGA);
+        currentMultiplier = 1f;
     }
 
     private IEnumerator SpawnDropAreasPerformer(SpawnDropAreasGA spawnDropAreasGA)
@@ -99,5 +113,10 @@ public class DropAreaManager : Singleton<DropAreaManager>
         }
 
         spawnedDropAreas.Clear();
+    }
+
+    public float GetMultiplierValue()
+    {
+        return currentMultiplier;
     }
 }

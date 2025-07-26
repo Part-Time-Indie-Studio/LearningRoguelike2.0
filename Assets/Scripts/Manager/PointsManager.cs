@@ -8,6 +8,7 @@ public class PointsManager : Singleton<PointsManager>
 
     private void OnEnable()
     {
+        ActionSystem.AttachPerformer<AddMultiplierGA>(AddMultiplierPerformer);
         ActionSystem.AttachPerformer<CheckSufficientPointsGA>(CheckSufficientPointsPerformer);
         ActionSystem.SubscribeReaction<EndTurnGA>(EndTurnPostReaction, ReactionTiming.POST);
     }
@@ -15,6 +16,7 @@ public class PointsManager : Singleton<PointsManager>
     private void OnDisable()
     {
         ActionSystem.DetachPerformer<CheckSufficientPointsGA>();
+        ActionSystem.DetachPerformer<AddMultiplierGA>();
         ActionSystem.UnsubscribeReaction<EndTurnGA>(EndTurnPostReaction, ReactionTiming.POST);
     }
 
@@ -30,6 +32,14 @@ public class PointsManager : Singleton<PointsManager>
         currentPoints += points;
         PointsUIManager.Instance.SetSliderValue(currentPoints);
     }
+
+    private IEnumerator AddMultiplierPerformer(AddMultiplierGA addMultiplierGA)
+    {
+        currentPoints *= addMultiplierGA.Multiplier;
+        PointsUIManager.Instance.SetSliderValue(currentPoints);
+        yield return null;
+    }
+    
 
     private IEnumerator CheckSufficientPointsPerformer(CheckSufficientPointsGA checkSufficientPointsGA)
     {

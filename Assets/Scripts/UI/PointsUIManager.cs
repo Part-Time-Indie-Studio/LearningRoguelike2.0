@@ -7,6 +7,7 @@ public class PointsUIManager : Singleton<PointsUIManager>
 {
     [SerializeField] private Slider slider;
     [SerializeField] private TextMeshProUGUI sliderText;
+    [SerializeField] private TextMeshProUGUI multiplierText;
     private float sliderCurrentValue;
     private float sliderMaxValue;
     
@@ -14,9 +15,9 @@ public class PointsUIManager : Singleton<PointsUIManager>
     {
         if (slider != null)
         {
-            slider.value = value;
-            sliderCurrentValue = value;
-            UpdateUI();
+            slider.value = Mathf.Round(value);
+            sliderCurrentValue = Mathf.Round(value);
+            UpdateSliderUI();
         }
         else
         {
@@ -28,9 +29,9 @@ public class PointsUIManager : Singleton<PointsUIManager>
     {
         if (slider != null)
         {
-            slider.maxValue = maxValue;
-            sliderMaxValue = maxValue;
-            UpdateUI();
+            slider.maxValue = Mathf.Round(maxValue);
+            sliderMaxValue = Mathf.Round(maxValue);
+            UpdateSliderUI();
         }
         else
         {
@@ -38,8 +39,18 @@ public class PointsUIManager : Singleton<PointsUIManager>
         }
     }
 
-    private void UpdateUI()
+    public void SetMultiplierValue()
+    {
+        UpdateMultiplierUI();
+    }
+
+    private void UpdateSliderUI()
     {
         sliderText.text = $"{sliderCurrentValue}/{sliderMaxValue}";
+    }
+
+    private void UpdateMultiplierUI()
+    {
+        multiplierText.text = $"{DropAreaManager.Instance.GetMultiplierValue()}";
     }
 }

@@ -29,4 +29,14 @@ public class Card
         Value = cardData.cardValue;
         Multiplier = cardData.cardMultiplier;
     }
+
+    public void IncreaseMultiplier(float amount)
+    {
+        Multiplier += amount;
+    }
+
+    public void ResetMultiplier()
+    {
+        Multiplier = data.cardMultiplier;
+    }
 }
