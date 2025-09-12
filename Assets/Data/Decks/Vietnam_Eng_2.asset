@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b73e2d3c87ffb6b4c870c67eec8829a1, type: 3}
+  m_Name: Vietnam_Eng_2
+  m_EditorClassIdentifier: 
+  <DeckName>k__BackingField: Vietnames/English Deck 2
+  <Cards>k__BackingField:
+  - {fileID: 11400000, guid: 64efcc1a80885794ab041fa4684cb645, type: 2}
+  - {fileID: 11400000, guid: a1f19430e9fa4dc48b53559d12184a04, type: 2}
+  - {fileID: 11400000, guid: 3dc259fd5102dbb4aa2a36a2fe8e3250, type: 2}
+  - {fileID: 11400000, guid: e2157a589a6c8a04180410d97c197fbf, type: 2}
+  - {fileID: 11400000, guid: dfb8ac1d2ecafdf479685def3e407a66, type: 2}
+  - {fileID: 11400000, guid: 309a545dcf94ed240998201c9133dd51, type: 2}
+  - {fileID: 11400000, guid: 6337893dafc5a5c46beb6d3f2041f796, type: 2}
+  - {fileID: 11400000, guid: ba84e4b357f02a24eb18dae7ef0564f0, type: 2}
+  - {fileID: 11400000, guid: c38b8d384760ec942980bf4e308ed595, type: 2}
+  - {fileID: 11400000, guid: 52f9d71d988cc9b4d98b5e0b0934017a, type: 2}
+  - {fileID: 11400000, guid: 82386c82948192f41bb299a854c5df5a, type: 2}
+  - {fileID: 11400000, guid: a8c87a06a58a44d4c9a0b46751d89753, type: 2}
+  - {fileID: 11400000, guid: 1a14f95b37c88174a80d99e3187b2d5c, type: 2}
+  - {fileID: 11400000, guid: 1418d2dea20ab754ca23c2dca6cfc642, type: 2}
+  - {fileID: 11400000, guid: 0775c577557bf6343b0c17defcbd2645, type: 2}
+  - {fileID: 11400000, guid: 5b9ffea1090388847bb1bd73344c732e, type: 2}
+  - {fileID: 11400000, guid: dfc0314ffea446640b73eb8714b3ce86, type: 2}
+  - {fileID: 11400000, guid: 94e70d28395290442acfbec9347d7c30, type: 2}
+  - {fileID: 11400000, guid: 8d8f7247415f9474aa63c846d23735ad, type: 2}
+  - {fileID: 11400000, guid: 5facaa0dccaeb1a4fbe3435b1d803a8b, type: 2}

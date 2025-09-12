@@ -29,8 +29,11 @@ public class CardSystem : Singleton<CardSystem>
 
     public void Setup(List<CardData> deckData)
     {
+        drawPile.Clear();
+        discardPile.Clear();
+        hand.Clear();
         UIManager.Instance.InitializeUI(drawPile.Count, discardPile.Count);
-        foreach (var cardData in deckData)
+        foreach (CardData cardData in deckData)
         {
             Card card = new(cardData);
             drawPile.Add(card);
@@ -64,8 +67,14 @@ public class CardSystem : Singleton<CardSystem>
             {
                 for (int i = 0; i < notDrawnAmount; i++)
                 {
-                    Debug.Log("After refilling deck");
-                    yield return DrawCard();
+                    if (drawPile.Count <= 0)
+                    {
+                        yield return null;
+                    }
+                    else
+                    {
+                        yield return DrawCard();
+                    }
                 }
             }
             else
@@ -96,6 +105,7 @@ public class CardSystem : Singleton<CardSystem>
     
     private IEnumerator DrawCard()
     {
+        Debug.Log("DrawCard");
         Card card = drawPile.Draw();
         hand.Add(card);
         CardView cardView = CardViewCreator.Instance.CreateCardView(card, drawPilePoint.position, drawPilePoint.rotation);

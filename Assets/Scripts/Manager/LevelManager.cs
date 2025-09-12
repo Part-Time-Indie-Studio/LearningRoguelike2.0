@@ -26,7 +26,7 @@ public class LevelManager : Singleton<LevelManager>
         }
         else
         {
-            Debug.LogError("No levels configured in PointsManager!");
+            Debug.LogError("No levels configured in LevelManager!");
         }
     }
 
@@ -36,7 +36,7 @@ public class LevelManager : Singleton<LevelManager>
         PointsManager.Instance.InitializePointsManager();
     }
     
-    private void ProceedToNextLevel()
+    public void ProceedToNextLevel()
     {
         if (currentLevelDataIndex < allLevels.allLevelsData.Length - 1)
         {
@@ -52,11 +52,12 @@ public class LevelManager : Singleton<LevelManager>
 
     private IEnumerator StartLevelGAPerformer(StartLevelGA startLevelGA)
     {
-        SpawnDropAreasGA spawnDropAreasGA = new(5);
-        ActionSystem.Instance.AddReaction(spawnDropAreasGA);
         RemoveDropAreaCardsGA removeDropAreaCardsGA = new();
         ActionSystem.Instance.AddReaction(removeDropAreaCardsGA);
+        SpawnDropAreasGA spawnDropAreasGA = new(5);
+        ActionSystem.Instance.AddReaction(spawnDropAreasGA);
         PointsUIManager.Instance.SetMultiplierValue();
+        
         yield return null;
     }
     

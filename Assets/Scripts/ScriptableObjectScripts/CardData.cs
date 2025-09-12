@@ -4,7 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Card")]
 public class CardData : ScriptableObject
 {
-    [field: SerializeField] public Sprite cardImage { get; private set; }
     [field: SerializeField] public int cardID;
     [field: SerializeField] public float cardValue;
     [field: SerializeField] public float cardMultiplier;

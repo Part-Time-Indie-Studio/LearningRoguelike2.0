@@ -1,0 +1,21 @@
+cardID,cardValue,cardMultiplier,cardLocalWord,cardTranslation,questions
+1,10,1.0,House,Casa,What do you call a building where people live?;Translate casa to English.
+2,12,1.1,Kitchen,Cocina,Where do you cook food in a house?;Translate cocina to English.
+3,15,1.2,Bedroom,Dormitorio,What room has a bed in it?;Translate dormitorio to English.;Where do you sleep?
+4,18,1.3,Bathroom,Baño,What room has a toilet and shower?;Translate baño to English.
+5,20,1.4,Living Room,Sala de estar,What room do you relax and watch TV in?;Translate sala de estar to English.
+6,22,1.5,Table,Mesa,What piece of furniture do you eat at?;Translate mesa to English.
+7,25,1.6,Chair,Silla,What do you sit on?;Translate silla to English.;What is a piece of furniture with a back and four legs?
+8,28,1.7,Sofa,Sofá,What is a large, comfortable seat for multiple people?;Translate sofá to English.
+9,30,1.8,Lamp,Lámpara,What do you use to provide light?;Translate lámpara to English.
+10,32,1.9,Window,Ventana,What is the opening in a wall to let in light and air?;Translate ventana to English.
+11,35,2.0,Door,Puerta,What do you use to enter or exit a room?;Translate puerta to English.
+12,38,2.1,Floor,Piso,What is the surface you walk on in a room?;Translate piso to English.
+13,40,2.2,Wall,Pared,What is the vertical surface that encloses a room?;Translate pared to English.
+14,42,2.3,Ceiling,Techo,What is the top surface of a room?;Translate techo to English.
+15,45,2.4,Bed,Cama,What do you sleep on?;Translate cama to English.
+16,48,2.5,Closet,Armario,What do you use to store clothes?;Translate armario to English.;Where do you hang jackets?
+17,50,2.6,Fridge,Nevera,What appliance keeps food cold?;Translate nevera to English.
+18,52,2.7,Oven,Horno,What appliance do you use for baking?;Translate horno to English.
+19,55,2.8,Stove,Estufa,What appliance do you use to cook on a burner?;Translate estufa to English.
+20,58,2.9,Dishwasher,Lavavajillas,What appliance washes plates and glasses?;Translate lavavajillas to English.

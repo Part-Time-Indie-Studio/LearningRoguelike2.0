@@ -25,7 +25,7 @@ public class PointsManager : Singleton<PointsManager>
         currentPoints = 0;
         PointsUIManager.Instance.SetSliderValue(currentPoints);
         PointsUIManager.Instance.SetSliderMaxValue(LevelManager.Instance.GetCurrentLevel().RequiredPoints);
-    }
+}
     
     public void AddPoints(float points)
     {
@@ -47,6 +47,7 @@ public class PointsManager : Singleton<PointsManager>
         {
             EndGameGA endGameGA = new();
             ActionSystem.Instance.AddReaction(endGameGA);
+            LevelManager.Instance.ProceedToNextLevel();
             yield return null;
         }
         else

@@ -4,11 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class Card
 {
-    private readonly CardData data;
-    public Sprite CardImage
-    {
-        get => data.cardImage;
-    }
+    public readonly CardData data;
     public string cardTranslation => data.cardTranslation;
     public string cardLocalWord => data.cardLocalWord;
     public List<string> cardQuestions => data.questions;

@@ -15,6 +15,7 @@ public class DropAreaManager : Singleton<DropAreaManager>
         ActionSystem.AttachPerformer<AddPointsGA>(AddPointsPerformer);
         ActionSystem.AttachPerformer<CheckAnswerGA>(CheckAnswerPerformer);
         ActionSystem.AttachPerformer<SpawnDropAreasGA>(SpawnDropAreasPerformer);
+        ActionSystem.AttachPerformer<RemoveDropAreaCardsGA>(RemoveDropAreaPerformer);
         ActionSystem.SubscribeReaction<CheckAnswerGA>(ApplyMultiplierPost, ReactionTiming.POST);
     }
 
@@ -23,6 +24,7 @@ public class DropAreaManager : Singleton<DropAreaManager>
         ActionSystem.DetachPerformer<AddPointsGA>();
         ActionSystem.DetachPerformer<CheckAnswerGA>();
         ActionSystem.DetachPerformer<SpawnDropAreasGA>();
+        ActionSystem.DetachPerformer<RemoveDropAreaCardsGA>();
         ActionSystem.UnsubscribeReaction<CheckAnswerGA>(ApplyMultiplierPost, ReactionTiming.POST);
     }
 
@@ -67,13 +69,12 @@ public class DropAreaManager : Singleton<DropAreaManager>
 
     private IEnumerator RemoveDropAreaPerformer(RemoveDropAreaCardsGA removeDropAreaCardsGA)
     {
+        ClearDropAreas();
         yield return null;
     }
     
     private void SpawnDropAreas(int numberOfAreas)
     {
-        ClearDropAreas();
-
         if (dropAreaPrefab == null)
         {
             Debug.LogError("Drop Area Prefab is not assigned in the DropAreaManager!");

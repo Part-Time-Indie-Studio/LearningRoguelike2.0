@@ -7,7 +7,6 @@ using UnityEngine.Rendering;
 
 public class CardView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    [SerializeField] private SpriteRenderer cardImage;
     [SerializeField] private TMP_Text cardLocalWordText;
     [SerializeField] private TMP_Text cardTranslationText;
     [SerializeField] private TMP_Text cardValueText;
@@ -33,7 +32,6 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void Setup(Card card)
     {
         Card = card;
-        cardImage.sprite = card.CardImage;
         cardLocalWordText.text = card.cardLocalWord;
         cardTranslationText.text = card.cardTranslation;
         cardValueText.text = card.Value.ToString();

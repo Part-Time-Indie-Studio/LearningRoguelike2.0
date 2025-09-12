@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b73e2d3c87ffb6b4c870c67eec8829a1, type: 3}
+  m_Name: VIetnam_Eng_1
+  m_EditorClassIdentifier: 
+  <DeckName>k__BackingField: Vietnamese/English Beginner Deck
+  <Cards>k__BackingField:
+  - {fileID: 11400000, guid: e6dd65c703c82e4489fbc2bbe46c6b5a, type: 2}
+  - {fileID: 11400000, guid: 3448bfd9f23c07a41b31245928a2a0ad, type: 2}
+  - {fileID: 11400000, guid: 1826983598de628408746b6772aa8602, type: 2}
+  - {fileID: 11400000, guid: e1ffeeab5c2b4694ca92da1631855a33, type: 2}
+  - {fileID: 11400000, guid: 60a74e481959bb743a26511a24934837, type: 2}
+  - {fileID: 11400000, guid: e6dd65c703c82e4489fbc2bbe46c6b5a, type: 2}
+  - {fileID: 11400000, guid: 3448bfd9f23c07a41b31245928a2a0ad, type: 2}
+  - {fileID: 11400000, guid: 1826983598de628408746b6772aa8602, type: 2}
+  - {fileID: 11400000, guid: e1ffeeab5c2b4694ca92da1631855a33, type: 2}
+  - {fileID: 11400000, guid: 60a74e481959bb743a26511a24934837, type: 2}
+  - {fileID: 11400000, guid: e6dd65c703c82e4489fbc2bbe46c6b5a, type: 2}
+  - {fileID: 11400000, guid: 3448bfd9f23c07a41b31245928a2a0ad, type: 2}
+  - {fileID: 11400000, guid: 1826983598de628408746b6772aa8602, type: 2}
+  - {fileID: 11400000, guid: e1ffeeab5c2b4694ca92da1631855a33, type: 2}
+  - {fileID: 11400000, guid: 60a74e481959bb743a26511a24934837, type: 2}
