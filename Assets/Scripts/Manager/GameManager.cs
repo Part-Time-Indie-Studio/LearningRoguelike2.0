@@ -12,6 +12,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private List<CardData> availableDeckData;
     [SerializeField] private GameObject GameCanvas;
     [SerializeField] private float numberOfCardsStart;
+    [SerializeField] private int numberOfRoundsStart;
     
     private void OnEnable()
     {
@@ -56,19 +57,22 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator AddCardToDeckGAPerformer(AddCardToDeckGA addCardToDeckGA)
     {
+        Debug.Log("AddCardToDeckGAPerformer");
         AddCardToCurrentDeck(addCardToDeckGA.CardData);
         yield return null;
     }
     
     private IEnumerator StartGameGAPerformer(StartGameGA startGameGA)
     {
+        Debug.Log("StartGameGAPerformer");
         GameCanvas.SetActive(true);
-        CardSystem.Instance.Setup(currentDeckData);
+        CardSystem.Instance.Setup(currentDeckData, numberOfRoundsStart);
         yield return null;
     }
 
     private IEnumerator EndGameGAPerformer(EndGameGA endGameGA)
     {
+        Debug.Log("EndGameGAPerformer");
         RemoveDropAreaCardsGA removeDropAreaCardsGA = new();
         ActionSystem.Instance.AddReaction(removeDropAreaCardsGA);
         GameCanvas.SetActive(false);
@@ -79,6 +83,7 @@ public class GameManager : Singleton<GameManager>
 
     private void StartGamePostReaction(StartGameGA startGameGA)
     {
+        Debug.Log("StartGamePostReaction (Post)");
         StartLevelGA startLevelGA = new();
         ActionSystem.Instance.AddReaction(startLevelGA);
     }

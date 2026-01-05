@@ -27,12 +27,12 @@ public class CardSystem : Singleton<CardSystem>
         ActionSystem.DetachPerformer<PlayCardGA>();
     }
 
-    public void Setup(List<CardData> deckData)
+    public void Setup(List<CardData> deckData, int rounds)
     {
         drawPile.Clear();
         discardPile.Clear();
         hand.Clear();
-        UIManager.Instance.InitializeUI(drawPile.Count, discardPile.Count);
+        UIManager.Instance.InitializeUI(drawPile.Count, discardPile.Count, rounds);
         foreach (CardData cardData in deckData)
         {
             Card card = new(cardData);
@@ -98,6 +98,7 @@ public class CardSystem : Singleton<CardSystem>
 
     private IEnumerator PlayCardPerformer(PlayCardGA playCardGA)
     {
+        Debug.Log("PlayCardPerformer");
         hand.Remove(playCardGA.Card);
         HandView.Instance.PlayCard(playCardGA.Card);
         yield return null;

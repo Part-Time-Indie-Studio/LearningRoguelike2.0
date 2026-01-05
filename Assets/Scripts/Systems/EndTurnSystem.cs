@@ -26,6 +26,7 @@ public class EndTurnSystem : MonoBehaviour
     
     private void EndTurnPreReaction(EndTurnGA endTurnGA)
     {
+        Debug.Log("EndTurnPreReaction");
         CheckAnswerGA checkAnswerGa = new();
         ActionSystem.Instance.AddReaction(checkAnswerGa);
     }

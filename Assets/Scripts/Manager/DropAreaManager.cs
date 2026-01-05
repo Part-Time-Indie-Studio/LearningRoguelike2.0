@@ -16,6 +16,8 @@ public class DropAreaManager : Singleton<DropAreaManager>
         ActionSystem.AttachPerformer<CheckAnswerGA>(CheckAnswerPerformer);
         ActionSystem.AttachPerformer<SpawnDropAreasGA>(SpawnDropAreasPerformer);
         ActionSystem.AttachPerformer<RemoveDropAreaCardsGA>(RemoveDropAreaPerformer);
+        ActionSystem.AttachPerformer<PlayResultAnimationGA>(PlayResultAnimationPerformer);
+        ActionSystem.SubscribeReaction<AddPointsGA>(PlayResultAnimationPreReaction, ReactionTiming.PRE);
         ActionSystem.SubscribeReaction<CheckAnswerGA>(ApplyMultiplierPost, ReactionTiming.POST);
     }
 
@@ -25,6 +27,8 @@ public class DropAreaManager : Singleton<DropAreaManager>
         ActionSystem.DetachPerformer<CheckAnswerGA>();
         ActionSystem.DetachPerformer<SpawnDropAreasGA>();
         ActionSystem.DetachPerformer<RemoveDropAreaCardsGA>();
+        ActionSystem.DetachPerformer<PlayResultAnimationGA>();
+        ActionSystem.UnsubscribeReaction<AddPointsGA>(PlayResultAnimationPreReaction, ReactionTiming.PRE);
         ActionSystem.UnsubscribeReaction<CheckAnswerGA>(ApplyMultiplierPost, ReactionTiming.POST);
     }
 
@@ -35,27 +39,43 @@ public class DropAreaManager : Singleton<DropAreaManager>
 
     private IEnumerator CheckAnswerPerformer(CheckAnswerGA checkAnswerGA)
     {
+        Debug.Log("CheckAnswerPerformer");
         foreach (CardDropArea dropArea in spawnedDropAreas)
         {
-            AddPointsGA addPointsGA = new(dropArea.GetPoints());
+            AddPointsGA addPointsGA = new(dropArea.GetPoints(), dropArea);
             ActionSystem.Instance.AddReaction(addPointsGA);
         }
+        yield return null;
+    }
+
+    private void PlayResultAnimationPreReaction(AddPointsGA addPointsGA)
+    {
+        PlayResultAnimationGA playResultAnimationGa = new(addPointsGA.CardDropArea);
+        ActionSystem.Instance.AddReaction(playResultAnimationGa);
+    }
+
+    private IEnumerator PlayResultAnimationPerformer(PlayResultAnimationGA playResultAnimationGa)
+    {
+        playResultAnimationGa.CardDropArea.PlayResultAnimation();
         yield return null;
     }
     
 	private IEnumerator AddPointsPerformer(AddPointsGA addPointsGA)
     {
+        Debug.Log("AddPointsPerformer");
         PointsManager.Instance.AddPoints(addPointsGA.PointsAmount);
-        if (addPointsGA.PointsAmount > 0)
+        if (addPointsGA.PointsAmount > 0) //if correct
         {
             currentMultiplier += 0.1f;
             PointsUIManager.Instance.SetMultiplierValue();
         }
-        yield return new WaitForSeconds(0.7f);
+        
+        yield return new WaitForSeconds(1.5f);
     }
     
     private void ApplyMultiplierPost(CheckAnswerGA checkAnswerGA)
     {
+        Debug.Log("ApplyMultiplier(Post)");
         AddMultiplierGA addMultiplierGA = new(currentMultiplier);
         ActionSystem.Instance.AddReaction(addMultiplierGA);
         currentMultiplier = 1f;
@@ -63,12 +83,14 @@ public class DropAreaManager : Singleton<DropAreaManager>
 
     private IEnumerator SpawnDropAreasPerformer(SpawnDropAreasGA spawnDropAreasGA)
     {
+        Debug.Log("SpawnDropAreasPerformer");
         SpawnDropAreas(spawnDropAreasGA.Amount);
         yield return null;
     }
 
     private IEnumerator RemoveDropAreaPerformer(RemoveDropAreaCardsGA removeDropAreaCardsGA)
     {
+        Debug.Log("RemoveDropAreaPerformer");
         ClearDropAreas();
         yield return null;
     }

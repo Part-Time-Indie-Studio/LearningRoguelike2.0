@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,12 +10,13 @@ public class CardDropArea : MonoBehaviour, ICardDropArea
     [SerializeField] private TMP_Text questionText;
     private CardView occupyingCardView = null;
     private string questionString = "";
+    [SerializeField] private Animator animator;
 
     private void Start()
     {
         SetupDropArea();
     }
-
+    
     private void OnDestroy()
     {
         if (occupyingCardView != null)
@@ -27,6 +29,8 @@ public class CardDropArea : MonoBehaviour, ICardDropArea
         }
     }
 
+    
+    
     public void OnCardDrop(CardView card)
     {
         card.transform.position = transform.position;
@@ -77,6 +81,17 @@ public class CardDropArea : MonoBehaviour, ICardDropArea
         }
     }
 
+    public void PlayResultAnimation()
+    {
+        if (GetPoints() > 0)
+        {
+            animator.SetTrigger("true");
+        }
+        else
+        {
+            animator.SetTrigger("false");
+        }
+    }
 
     private void SetupDropArea()
     {

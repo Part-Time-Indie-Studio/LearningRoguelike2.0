@@ -25,7 +25,7 @@ public class PointsManager : Singleton<PointsManager>
         currentPoints = 0;
         PointsUIManager.Instance.SetSliderValue(currentPoints);
         PointsUIManager.Instance.SetSliderMaxValue(LevelManager.Instance.GetCurrentLevel().RequiredPoints);
-}
+    }
     
     public void AddPoints(float points)
     {
@@ -35,6 +35,7 @@ public class PointsManager : Singleton<PointsManager>
 
     private IEnumerator AddMultiplierPerformer(AddMultiplierGA addMultiplierGA)
     {
+        Debug.Log("AddMultiplierPerformer");
         currentPoints *= addMultiplierGA.Multiplier;
         PointsUIManager.Instance.SetSliderValue(currentPoints);
         yield return null;
@@ -43,6 +44,7 @@ public class PointsManager : Singleton<PointsManager>
 
     private IEnumerator CheckSufficientPointsPerformer(CheckSufficientPointsGA checkSufficientPointsGA)
     {
+        Debug.Log("CheckSufficientPointsPerformer");
         if (currentPoints >= checkSufficientPointsGA.RequiredPoints)
         {
             EndGameGA endGameGA = new();
@@ -60,6 +62,7 @@ public class PointsManager : Singleton<PointsManager>
 
     private void EndTurnPostReaction(EndTurnGA endTurnGA)
     {
+        Debug.Log("EndTurnPostReaction");
         CheckSufficientPointsGA checkSufficientPointsGA = new();
         ActionSystem.Instance.AddReaction(checkSufficientPointsGA);
     }
