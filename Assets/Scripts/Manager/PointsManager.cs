@@ -54,8 +54,18 @@ public class PointsManager : Singleton<PointsManager>
         }
         else
         {
-            StartLevelGA startLevelGA = new();
-            ActionSystem.Instance.AddReaction(startLevelGA);
+            if (TurnSystem.Instance.HasRunOutOfRounds())
+            {
+                GameLostGA gameLostGA = new();
+                ActionSystem.Instance.AddReaction(gameLostGA);
+                RemoveDropAreaCardsGA removeDropAreaCardsGA = new();
+                ActionSystem.Instance.AddReaction(removeDropAreaCardsGA);
+            }
+            else
+            {
+                StartLevelGA startLevelGA = new();
+                ActionSystem.Instance.AddReaction(startLevelGA);
+            }
             yield return null;
         }
     }

@@ -11,14 +11,15 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private List<CardData> currentDeckData;
     [SerializeField] private List<CardData> availableDeckData;
     [SerializeField] private GameObject GameCanvas;
+    [SerializeField] private GameObject GameLostCanvas;
     [SerializeField] private float numberOfCardsStart;
-    [SerializeField] private int numberOfRoundsStart;
     
     private void OnEnable()
     {
-        ActionSystem.AttachPerformer<AddCardToDeckGA>(AddCardToDeckGAPerformer);
-        ActionSystem.AttachPerformer<StartGameGA>(StartGameGAPerformer);
-        ActionSystem.AttachPerformer<EndGameGA>(EndGameGAPerformer);
+        ActionSystem.AttachPerformer<AddCardToDeckGA>(AddCardToDeckPerformer);
+        ActionSystem.AttachPerformer<StartGameGA>(StartGamePerformer);
+        ActionSystem.AttachPerformer<EndGameGA>(EndGamePerformer);
+        ActionSystem.AttachPerformer<GameLostGA>(GameLostPerformer);
         ActionSystem.SubscribeReaction<StartGameGA>(StartGamePostReaction, ReactionTiming.POST);
     }
 
@@ -27,6 +28,7 @@ public class GameManager : Singleton<GameManager>
         ActionSystem.DetachPerformer<AddCardToDeckGA>();
         ActionSystem.DetachPerformer<StartGameGA>();
         ActionSystem.DetachPerformer<EndGameGA>();
+        ActionSystem.DetachPerformer<GameLostGA>();
         ActionSystem.UnsubscribeReaction<StartGameGA>(StartGamePostReaction, ReactionTiming.POST);
     }
 
@@ -55,29 +57,36 @@ public class GameManager : Singleton<GameManager>
         ActionSystem.Instance.Perform(startGameGA);
     }
 
-    private IEnumerator AddCardToDeckGAPerformer(AddCardToDeckGA addCardToDeckGA)
+    private IEnumerator AddCardToDeckPerformer(AddCardToDeckGA addCardToDeckGA)
     {
-        Debug.Log("AddCardToDeckGAPerformer");
+        Debug.Log("AddCardToDeckPerformer");
         AddCardToCurrentDeck(addCardToDeckGA.CardData);
         yield return null;
     }
     
-    private IEnumerator StartGameGAPerformer(StartGameGA startGameGA)
+    private IEnumerator StartGamePerformer(StartGameGA startGameGA)
     {
-        Debug.Log("StartGameGAPerformer");
+        Debug.Log("StartGamePerformer");
         GameCanvas.SetActive(true);
-        CardSystem.Instance.Setup(currentDeckData, numberOfRoundsStart);
+        CardSystem.Instance.Setup(currentDeckData);
         yield return null;
     }
 
-    private IEnumerator EndGameGAPerformer(EndGameGA endGameGA)
+    private IEnumerator EndGamePerformer(EndGameGA endGameGA)
     {
-        Debug.Log("EndGameGAPerformer");
+        Debug.Log("EndGamePerformer");
         RemoveDropAreaCardsGA removeDropAreaCardsGA = new();
         ActionSystem.Instance.AddReaction(removeDropAreaCardsGA);
         GameCanvas.SetActive(false);
         PickNewCardGA pickNewCardGA = new();
         ActionSystem.Instance.AddReaction(pickNewCardGA);
+        yield return null;
+    }
+
+    private IEnumerator GameLostPerformer(GameLostGA gameLostGA)
+    {
+        GameCanvas.SetActive(false);
+        GameLostCanvas.SetActive(true);
         yield return null;
     }
 

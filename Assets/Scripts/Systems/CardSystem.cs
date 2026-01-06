@@ -27,12 +27,12 @@ public class CardSystem : Singleton<CardSystem>
         ActionSystem.DetachPerformer<PlayCardGA>();
     }
 
-    public void Setup(List<CardData> deckData, int rounds)
+    public void Setup(List<CardData> deckData)
     {
         drawPile.Clear();
         discardPile.Clear();
         hand.Clear();
-        UIManager.Instance.InitializeUI(drawPile.Count, discardPile.Count, rounds);
+        UIManager.Instance.InitializeUI(drawPile.Count, discardPile.Count);
         foreach (CardData cardData in deckData)
         {
             Card card = new(cardData);
@@ -118,6 +118,8 @@ public class CardSystem : Singleton<CardSystem>
     {
         drawPile.AddRange(discardPile);
         discardPile.Clear();
+        UIManager.Instance.UpdateDiscardSize(discardPile.Count);
+        UIManager.Instance.UpdateDeckSize(drawPile.Count);
     }
 
     public void AddCardToDeck(Card card)

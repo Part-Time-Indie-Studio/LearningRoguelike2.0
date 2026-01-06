@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -9,38 +11,30 @@ public class UIManager : Singleton<UIManager>
 
     private int deckSize;
     private int discardSize;
-    private int roundsLeft;
 
-    public void InitializeUI(int deck, int discard, int rounds)
+
+    public void InitializeUI(int deck, int discard)
     {
         this.deckSize = deck;
         this.discardSize = discard;
-        this.roundsLeft = rounds;
-        UpdateUI();
+        deckSizeText.text = $"Deck:{deckSize}";
+        discardSizeText.text = $"Discard:{discardSize}";
     }
     
     public void UpdateDeckSize(int size)
     {
         deckSize = size;
-        UpdateUI();
+        deckSizeText.text = $"Deck:{deckSize}";
     }
 
     public void UpdateDiscardSize(int size)
     {
         discardSize = size;
-        UpdateUI();
-    }
-
-    public void UpdateRoundsLeft()
-    {
-        roundsLeft -= 1;
-        UpdateUI();
-    }
-
-    private void UpdateUI()
-    {
-        deckSizeText.text = $"Deck:{deckSize}";
         discardSizeText.text = $"Discard:{discardSize}";
-        RoundsLeftText.text = $"Rounds Left:{roundsLeft}";
+    }
+
+    public void UpdateRoundsLeft(int rounds)
+    {
+        RoundsLeftText.text = $"Rounds Left:{rounds}";
     }
 }

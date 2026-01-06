@@ -33,6 +33,7 @@ public class LevelManager : Singleton<LevelManager>
     private void InitializeLevel()
     {
         allLevels.currentLevelData = allLevels.allLevelsData[currentLevelDataIndex];
+        TurnSystem.Instance.AddRoundsAmount(allLevels.currentLevelData.RoundsGained);
         PointsManager.Instance.InitializePointsManager();
     }
     

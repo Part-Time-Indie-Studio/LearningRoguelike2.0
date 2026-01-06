@@ -40,6 +40,7 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (ActionSystem.Instance.IsPerforming) return;
         //if (isLocked) return;
         if (isInSlot)
         {
@@ -56,6 +57,7 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void OnDrag(PointerEventData data)
     {
         //if (isLocked) return;
+        if (ActionSystem.Instance.IsPerforming) return;
         if (Interactions.Instance.PlayerCanMove())
         {
             transform.position = GetMousePositionInWorldSpace();
@@ -65,6 +67,7 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void OnEndDrag(PointerEventData eventData)
     {
         //if (isLocked) return;
+        if (ActionSystem.Instance.IsPerforming) return;
         sortingGroup.sortingOrder = 90;
         Interactions.Instance.PlayerIsDragging = false;
         

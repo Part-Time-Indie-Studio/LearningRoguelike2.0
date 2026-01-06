@@ -6,5 +6,7 @@ public class EndTurnButton : MonoBehaviour
     {
         EndTurnGA endTurnGA = new();
         ActionSystem.Instance.Perform(endTurnGA);
+        ReduceRoundsGA reduceRoundsGA = new();
+        ActionSystem.Instance.AddReaction(reduceRoundsGA);
     }
 }
