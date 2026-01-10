@@ -61,6 +61,7 @@ public class CardDropArea : MonoBehaviour, ICardDropArea
         }
     }
     
+    
     public float GetPoints()
     {
         if (occupyingCardView == null)
@@ -71,27 +72,36 @@ public class CardDropArea : MonoBehaviour, ICardDropArea
         if (occupyingCardView.Card.cardQuestions.Contains(questionString))
         {
             float points = occupyingCardView.Card.Value * occupyingCardView.Card.Multiplier;
-            occupyingCardView.Card.IncreaseMultiplier(0.1f);
             return points;
         }
         else
         {
-            occupyingCardView.Card.ResetMultiplier();
             return 0;
         }
     }
 
+    
     public void PlayResultAnimation()
     {
-        if (GetPoints() > 0)
+        if (IsCorrect())
         {
             animator.SetTrigger("true");
+            occupyingCardView.Card.IncreaseMultiplier(0.1f);
         }
         else
         {
             animator.SetTrigger("false");
+            if (occupyingCardView == null)
+            {
+                return;
+            }
+            else
+            {
+                occupyingCardView.Card.ResetMultiplier();
+            }
         }
     }
+    
 
     private void SetupDropArea()
     {
