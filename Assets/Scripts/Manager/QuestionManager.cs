@@ -25,17 +25,54 @@ public class QuestionManager : Singleton<QuestionManager>
                 return null;
             }
 
-            questions.AddRange(discardQuestions);
+            // Reshuffle: only add questions that aren't currently displayed
+            foreach (string discardedQuestion in discardQuestions)
+            {
+                if (!currentDisplayedQuestions.Contains(discardedQuestion))
+                {
+                    questions.Add(discardedQuestion);
+                }
+            }
+            
             discardQuestions.Clear();
+            
+            // If all questions are currently displayed
+            if (questions.Count == 0)
+            {
+                Debug.LogWarning("All questions are currently displayed.");
+                return null;
+            }
         }
         
+        // Pick a random question that isn't already displayed
+        string selectedQuestion;
+        int attempts = 0;
+        int maxAttempts = questions.Count * 2; // Prevent infinite loop
         
-        int randomIndex = Random.Range(0, questions.Count);
-        string selectedQuestion = questions[randomIndex];
+        do
+        {
+            int randomIndex = Random.Range(0, questions.Count);
+            selectedQuestion = questions[randomIndex];
+            attempts++;
+            
+            if (!currentDisplayedQuestions.Contains(selectedQuestion))
+            {
+                questions.RemoveAt(randomIndex);
+                discardQuestions.Add(selectedQuestion);
+                currentDisplayedQuestions.Add(selectedQuestion);
+                return selectedQuestion;
+            }
+            
+        } while (attempts < maxAttempts);
         
-        questions.RemoveAt(randomIndex);
-        discardQuestions.Add(selectedQuestion);
-        currentDisplayedQuestions.Add(selectedQuestion);
-        return selectedQuestion;
+        // Fallback: shouldn't reach here if logic is correct
+        Debug.LogWarning("Could not find a non-displayed question.");
+        return null;
+    }
+    
+    // Call this when a card is dismissed/removed from display
+    public void RemoveDisplayedQuestion(string question)
+    {
+        currentDisplayedQuestions.Remove(question);
     }
 }

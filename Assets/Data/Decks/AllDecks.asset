@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753423202a78b4b4199407d9b665af53, type: 3}
   m_Name: AllDecks
   m_EditorClassIdentifier: 
-  currentDeckData: {fileID: 11400000, guid: cdf5365a1f64c204da1a772bfca82dc6, type: 2}
+  currentDeckData: {fileID: 11400000, guid: 13ec447c831e3164daa82d5e9edb0531, type: 2}
   allDecksData:
   - {fileID: 11400000, guid: cdf5365a1f64c204da1a772bfca82dc6, type: 2}
   - {fileID: 11400000, guid: 13ec447c831e3164daa82d5e9edb0531, type: 2}
