@@ -1995,9 +1995,10 @@ MonoBehaviour:
   masterDeckData: []
   currentDeckData: []
   availableDeckData: []
+  pickedCardsList: []
   GameCanvas: {fileID: 7828333653927665567}
   GameLostCanvas: {fileID: 1814579554}
-  numberOfCardsStart: 12
+  numberOfCardsStart: 6
 --- !u!114 &1766139998405167349
 MonoBehaviour:
   m_ObjectHideFlags: 0

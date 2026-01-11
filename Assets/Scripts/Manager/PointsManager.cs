@@ -5,6 +5,7 @@ using UnityEngine;
 public class PointsManager : Singleton<PointsManager>
 {
     private float currentPoints = 0;
+    private float currentRoundPoints = 0;
 
     private void OnEnable()
     {
@@ -30,13 +31,18 @@ public class PointsManager : Singleton<PointsManager>
     public void AddPoints(float points)
     {
         currentPoints += points;
+        currentRoundPoints += points;
         PointsUIManager.Instance.SetSliderValue(currentPoints);
     }
 
     private IEnumerator AddMultiplierPerformer(AddMultiplierGA addMultiplierGA)
     {
         Debug.Log("AddMultiplierPerformer");
-        currentPoints *= addMultiplierGA.Multiplier;
+        currentPoints -= currentRoundPoints;
+        currentRoundPoints *= addMultiplierGA.Multiplier;
+        
+        currentPoints += currentRoundPoints;
+        currentRoundPoints = 0;
         PointsUIManager.Instance.SetSliderValue(currentPoints);
         yield return null;
     }

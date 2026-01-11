@@ -10,9 +10,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private List<CardData> masterDeckData;
     [SerializeField] private List<CardData> currentDeckData;
     [SerializeField] private List<CardData> availableDeckData;
+    [SerializeField] private List<CardData> pickedCardsList;
     [SerializeField] private GameObject GameCanvas;
     [SerializeField] private GameObject GameLostCanvas;
-    [SerializeField] private float numberOfCardsStart;
+    [SerializeField] private int numberOfCardsStart;
     
     private void OnEnable()
     {
@@ -48,13 +49,12 @@ public class GameManager : Singleton<GameManager>
             currentDeckData.Add(tempDeck[i]);
         }
         
-        for (int i = 5; i < tempDeck.Count; i++)
+        for (int i = numberOfCardsStart; i < tempDeck.Count; i++)
         {
             availableDeckData.Add(tempDeck[i]);
         }
-        
-        StartGameGA startGameGA = new();
-        ActionSystem.Instance.Perform(startGameGA);
+
+        SetupStartFirstGame();
     }
 
     private IEnumerator AddCardToDeckPerformer(AddCardToDeckGA addCardToDeckGA)
@@ -63,12 +63,21 @@ public class GameManager : Singleton<GameManager>
         AddCardToCurrentDeck(addCardToDeckGA.CardData);
         yield return null;
     }
+
+    private void SetupStartFirstGame()
+    {
+        Debug.Log("Init StartGame");
+        CardSystem.Instance.FirstSetup(currentDeckData);
+        StartLevelGA startLevelGA = new();
+        ActionSystem.Instance.Perform(startLevelGA);
+    }
     
     private IEnumerator StartGamePerformer(StartGameGA startGameGA)
     {
         Debug.Log("StartGamePerformer");
         GameCanvas.SetActive(true);
-        CardSystem.Instance.Setup(currentDeckData);
+        CardSystem.Instance.Setup(pickedCardsList);
+        pickedCardsList.Clear();
         yield return null;
     }
 
@@ -101,11 +110,13 @@ public class GameManager : Singleton<GameManager>
     {
         List<CardData> pickedCards = new List<CardData>();
         List<CardData> tempAvailableDeck = new List<CardData>(availableDeckData);
+        List<CardData> newResetDeck = new List<CardData>(masterDeckData);
+        Shuffle(newResetDeck);
         
-        if (tempAvailableDeck.Count == 0)
+        if (tempAvailableDeck.Count < 3)
         {
-            Debug.LogWarning("Available deck is empty, cannot pick cards.");
-            return pickedCards;
+            Debug.LogWarning("Less than 3 cards remaining");
+            tempAvailableDeck.AddRange(newResetDeck); //WARNING UNSTABLE CODE, NOT GOOD FIX AT SOME STAGE
         }
         
         if (numberOfCards > tempAvailableDeck.Count)
@@ -139,7 +150,9 @@ public class GameManager : Singleton<GameManager>
         if (availableDeckData.Contains(cardToAdd))
         {
             currentDeckData.Add(cardToAdd);
+            pickedCardsList.Add(cardToAdd);
             availableDeckData.Remove(cardToAdd);
+            
             Debug.Log($"Added {cardToAdd.cardLocalWord} to current deck. Current deck size: {currentDeckData.Count}, Available deck size: {availableDeckData.Count}.");
         }
         else

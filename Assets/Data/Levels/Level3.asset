@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Level3
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   <LevelID>k__BackingField: 3
-  <RequiredPoints>k__BackingField: 3000
+  <RequiredPoints>k__BackingField: 1500
   <RoundsGained>k__BackingField: 3

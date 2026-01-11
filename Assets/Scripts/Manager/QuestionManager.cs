@@ -1,10 +1,13 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class QuestionManager : Singleton<QuestionManager>
 {
     [SerializeField] private List<string> questions;
     [SerializeField] private List<string> discardQuestions;
+    [SerializeField] private List<string> currentDisplayedQuestions;
 
     public void SetQuestions(List<string> receivedQuestions)
     {
@@ -26,12 +29,13 @@ public class QuestionManager : Singleton<QuestionManager>
             discardQuestions.Clear();
         }
         
+        
         int randomIndex = Random.Range(0, questions.Count);
         string selectedQuestion = questions[randomIndex];
         
         questions.RemoveAt(randomIndex);
         discardQuestions.Add(selectedQuestion);
-
+        currentDisplayedQuestions.Add(selectedQuestion);
         return selectedQuestion;
     }
 }

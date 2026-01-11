@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af07298214e1afc4195ebad5ce49063c, type: 3}
   m_Name: AllLevelsData
   m_EditorClassIdentifier: Assembly-CSharp::AllLevelsData
-  currentLevelData: {fileID: 11400000, guid: ff794e3e7d33d93479f842327fc89d1d, type: 2}
+  currentLevelData: {fileID: 11400000, guid: cac4a1dd837ab0741b15800dab24e2cd, type: 2}
   allLevelsData:
   - {fileID: 11400000, guid: ff794e3e7d33d93479f842327fc89d1d, type: 2}
   - {fileID: 11400000, guid: cac4a1dd837ab0741b15800dab24e2cd, type: 2}
   - {fileID: 11400000, guid: 712c0b7da077a1d4e9054ab1293b4ef3, type: 2}
+  - {fileID: 11400000, guid: 365a4d100b00ea84ca66cedcc6c7e39c, type: 2}
+  - {fileID: 11400000, guid: 2a12b28a1f86e7e4f891b248f22a2ee4, type: 2}
+  - {fileID: 11400000, guid: 6f4f5dacfadc6c844a3ad7fd825743f8, type: 2}
+  - {fileID: 11400000, guid: aadf33b7d3f4c244aaaaf7a504c276bf, type: 2}
+  - {fileID: 11400000, guid: e5e50cff1985e7a4aa09fc7ee15c8d03, type: 2}
+  - {fileID: 11400000, guid: d674b9cfa02a569408913564341241b5, type: 2}
+  - {fileID: 11400000, guid: 722bc3e804f18dc45aadcd6b30823455, type: 2}

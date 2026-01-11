@@ -35,7 +35,7 @@ public class CardView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         cardLocalWordText.text = card.cardLocalWord;
         cardTranslationText.text = card.cardTranslation;
         cardValueText.text = card.Value.ToString();
-        cardMultiplierText.text = card.Multiplier.ToString();
+        cardMultiplierText.text = card.Multiplier.ToString("F1");
     }
 
     public void OnBeginDrag(PointerEventData eventData)

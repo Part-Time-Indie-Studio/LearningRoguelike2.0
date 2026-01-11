@@ -27,7 +27,7 @@ public class CardSystem : Singleton<CardSystem>
         ActionSystem.DetachPerformer<PlayCardGA>();
     }
 
-    public void Setup(List<CardData> deckData)
+    public void FirstSetup(List<CardData> deckData)
     {
         drawPile.Clear();
         discardPile.Clear();
@@ -39,6 +39,18 @@ public class CardSystem : Singleton<CardSystem>
             drawPile.Add(card);
         }
 
+        InitialiseQuestions();
+    }
+
+    public void Setup(List<CardData> deckData)
+    {
+        UIManager.Instance.InitializeUI(drawPile.Count, discardPile.Count);
+        foreach (CardData cardData in deckData)
+        {
+            Card card = new(cardData);
+            AddCardToDeck(card);
+        }
+        
         InitialiseQuestions();
     }
     
@@ -124,7 +136,7 @@ public class CardSystem : Singleton<CardSystem>
 
     public void AddCardToDeck(Card card)
     {
-        drawPile.Add(card);
+        discardPile.Add(card);
     }
 
     private IEnumerator DiscardCard(CardView cardView)
